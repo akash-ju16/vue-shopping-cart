@@ -1,0 +1,11 @@
+shopping cart :: (author) Md. AKash
+
+using tools
+-component
+-props
+-emit listen
+-optional api
+	-data, methods,
+
+-vanila javascript
+	-array push, splice, 

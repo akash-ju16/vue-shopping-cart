@@ -1,26 +1,70 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
+<div>
+  <header>
+    <button @click="navigateTo('products')">view product</button>
+    {{ cart.length }} in cart 
+    <button @click="navigateTo('cart')">view cart</button>
+  </header>
+
+  <div v-if="page === 'cart'">
+    <CartApp :cart="cart" @removeItemFromCartForwRec="removeItemFromCart" />
+  </div>
+
+ <div v-if="page === 'products'">
+    <ProdunctApp @addItemCartForwardRcv="addItemCartNew" />
+  </div>
+
+</div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import ProdunctApp from "./components/ProducntApp.vue";
+import CartApp from "./components/CartApp.vue";
 
 export default {
   name: 'App',
-  components: {
-    HelloWorld
+  data() {
+    return {
+      cart: [],
+      page: "products",
+    }
+  },
+  components: {ProdunctApp, CartApp},
+  methods: {
+    addItemCartNew(event) {
+      // console.log(event);
+      this.cart.push(event);
+      // console.log(this.cart);
+    },
+    navigateTo(event) {
+      this.page = event;
+    },
+    removeItemFromCart(event) {
+      //  console.log(event);
+       this.cart.splice(event, 1);
+    }
   }
+  
 }
 </script>
-
 <style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+body {
+  margin: 0;
+  padding: 3px;
+}
+.products{
+  display: grid;
+  grid-template-columns: 260px 260px 260px;
+}
+</style>
+<style scoped>
+
+header {
+  height:60px;
+  background-color: #eee;
+  box-shadow: 2px 2px 5px #999;
+  text-align: right;
+  font-size: 30px;
+  padding-top: 20px;
 }
 </style>
